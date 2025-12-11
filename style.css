@@ -1620,3 +1620,7 @@ a.text-hover:focus:after {
     opacity: 1 !important;
   }  
 }
+/* Custom header border color override */
+.header-top {
+    border-bottom: 2px solid #007bff !important;
+}
