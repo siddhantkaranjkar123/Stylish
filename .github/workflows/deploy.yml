@@ -1,4 +1,4 @@
-name: Deploy to EC2
+name: Deploy Stylish Website to EC2
 
 on:
   push:
@@ -13,13 +13,13 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Copy website files to EC2 (exclude git folders)
+    - name: Upload website to EC2 (no .git)
       uses: appleboy/scp-action@v0.1.4
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.PRIVATE_KEY }}
-        source: "./*"
+        source: "./"
         target: "/usr/share/nginx/html/"
         overwrite: true
         rm: false
@@ -27,8 +27,8 @@ jobs:
         exclude: |
           .git/**
           .github/**
-          .gitignore
           README.md
+          readme.txt
 
     - name: Restart nginx on EC2
       uses: appleboy/ssh-action@v0.1.10
@@ -38,4 +38,4 @@ jobs:
         key: ${{ secrets.PRIVATE_KEY }}
         script: |
           sudo systemctl restart nginx
-          echo "Deployment completed!"
+          echo "Deployment successful!"
