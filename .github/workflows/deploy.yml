@@ -21,7 +21,6 @@ jobs:
         key: ${{ secrets.EC2_KEY }}
         source: "./*"
         target: /var/www/mywebsite
-        rm: true
         strip_components: 1
 
     - name: Reload NGINX
